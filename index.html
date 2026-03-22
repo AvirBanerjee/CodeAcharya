@@ -98,9 +98,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   letter-spacing: -0.02em;
 }
 .nav-brand .accent { color: var(--saffron); }
-.nav-brand .acccent-ac{
-  color: rgb(79, 75, 75);
-}
+
 .nav-links {
   display: flex; align-items: center; gap: 4px;
 }
@@ -1099,43 +1097,92 @@ footer {
 }
 
 /* ══════════════════════════════════════
-   RESPONSIVE
+   RESPONSIVE — FULLY FIXED
 ══════════════════════════════════════ */
+
+/* Global overflow prevention */
+html, body { overflow-x: hidden; max-width: 100%; }
+
 @media (max-width: 1024px) {
   .programs-grid { grid-template-columns: repeat(2, 1fr); }
   .prog-card.featured { grid-row: auto; }
   .founder-layout { grid-template-columns: 1fr; gap: 40px; }
+  .contact-layout { grid-template-columns: 1fr; gap: 40px; }
 }
 
 @media (max-width: 768px) {
+  /* NAV */
   .nav-links { display: none; }
   .hamburger { display: flex; }
+  #navbar { padding: 0 4%; height: 60px; }
+  .mobile-menu { top: 60px; padding: 32px 4%; }
 
-  .hero-inner { grid-template-columns: 1fr; padding: 60px 5% 120px; }
+  /* ALL SECTIONS */
+  .section { padding: 60px 4%; }
+  footer { padding: 48px 4% 28px; }
+
+  /* HERO — fixes white gap + cut off */
+  #hero { min-height: auto; padding-top: 60px; }
+  #hero::before { height: 70px; clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%); }
+  .hero-inner { grid-template-columns: 1fr; padding: 40px 4% 96px; gap: 28px; }
   .hero-right { display: none; }
+  .hero-h1 { font-size: clamp(1.9rem, 6vw, 2.8rem); line-height: 1.1; }
+  .hero-sub { font-size: 0.93rem; max-width: 100%; margin-bottom: 28px; }
+  .hero-tag { font-size: 0.64rem; padding: 5px 12px; }
+  .hero-btns { flex-wrap: wrap; }
 
-  .about-layout { grid-template-columns: 1fr; gap: 40px; }
-  .pillars-grid { grid-template-columns: 1fr 1fr; }
+  /* ABOUT */
+  .about-layout { grid-template-columns: 1fr; gap: 32px; margin-top: 36px; }
+  .pillars-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .about-quote-card { padding: 26px 20px; }
+  .about-numbers { grid-template-columns: repeat(3, 1fr); }
 
-  .programs-header { flex-direction: column; align-items: flex-start; }
-  .programs-grid { grid-template-columns: 1fr; }
+  /* PROGRAMS */
+  .programs-header { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 36px; }
+  .programs-grid { grid-template-columns: 1fr; gap: 14px; }
+  .prog-card { padding: 22px 18px; }
 
-  .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+  /* PROCESS */
+  .steps-layout { margin-top: 40px; }
+  .step-row { grid-template-columns: 54px 1fr; }
+  .step-content { padding: 0 0 30px 16px; }
+  .step-circle { width: 40px; height: 40px; font-size: 0.78rem; }
 
-  .founder-blocks { grid-template-columns: 1fr; }
+  /* FOUNDER */
+  .founder-layout { grid-template-columns: 1fr; gap: 32px; margin-top: 36px; }
+  .founder-blocks { grid-template-columns: 1fr; gap: 12px; }
   .fblock.full { grid-column: auto; }
 
-  .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-  .footer-bottom { flex-direction: column; text-align: center; }
+  /* CONTACT */
+  .contact-layout { grid-template-columns: 1fr; gap: 28px; margin-top: 36px; }
+  .contact-card { padding: 14px 16px; gap: 12px; }
+  .cc-icon { width: 40px; height: 40px; font-size: 1.1rem; border-radius: 10px; }
+  .cc-value { font-size: 0.85rem; word-break: break-all; }
 
-  .about-numbers { grid-template-columns: repeat(3, 1fr); }
+  /* FOOTER */
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; margin-bottom: 28px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 6px; }
+
+  /* SECTION TITLES */
+  .section-title { font-size: clamp(1.6rem, 5.5vw, 2.3rem); }
 }
 
 @media (max-width: 480px) {
-  .hero-h1 { font-size: 2.2rem; }
+  .section { padding: 48px 4%; }
+  .hero-inner { padding: 32px 4% 80px; }
+  .hero-h1 { font-size: 1.9rem; }
+  .hero-btns { flex-direction: column; gap: 10px; }
+  .btn-primary, .btn-secondary { justify-content: center; width: 100%; }
   .pillars-grid { grid-template-columns: 1fr; }
-  .hero-btns { flex-direction: column; }
-  .btn-primary, .btn-secondary { justify-content: center; }
+  .about-quote-text { font-size: 1rem; }
+  .a-num-n { font-size: 1.4rem; }
+  .prog-card { padding: 18px 14px; }
+  .step-row { grid-template-columns: 46px 1fr; }
+  .step-circle { width: 34px; height: 34px; font-size: 0.7rem; }
+  .step-content { padding: 0 0 22px 12px; }
+  .founder-avatar { width: 58px; height: 58px; font-size: 1.3rem; }
+  .fblock { padding: 16px 14px; }
+  .footer-grid { gap: 22px; }
 }
 
 </style>
@@ -1155,7 +1202,7 @@ footer {
 <nav id="navbar">
   <a href="#hero" class="nav-logo">
     <img src="codeAcharya_.jpeg" alt="CodeAcharya logo"/>
-    <span class="nav-brand"><span class="accent">Code</span><span class="acccent-ac">Acharya</span></span>
+    <span class="nav-brand"><span class="accent">Code</span><span style="color: #708090;">Acharya</span></span>
   </a>
 
   <div class="nav-links">
@@ -1228,7 +1275,7 @@ footer {
             <div class="h-stat-l">Students Trained</div>
           </div>
           <div class="h-stat">
-            <div class="h-stat-n" data-target="5" data-suffix="+">5+</div>
+            <div class="h-stat-n" data-target="7" data-suffix="+">7+</div>
             <div class="h-stat-l">Universities</div>
           </div>
           <div class="h-stat">
@@ -1243,7 +1290,7 @@ footer {
 
         <div class="hero-badge">
           <div class="hero-badge-dot"></div>
-          <span>Now accepting college partnerships for 2025–26</span>
+          <span>Now accepting college partnerships for 2026–27</span>
         </div>
       </div>
     </div>
@@ -1329,7 +1376,7 @@ footer {
             <div class="a-num-l">Students</div>
           </div>
           <div class="a-num">
-            <div class="a-num-n" data-target="5" data-suffix="+">5+</div>
+            <div class="a-num-n" data-target="7" data-suffix="+">7+</div>
             <div class="a-num-l">Universities</div>
           </div>
           <div class="a-num">
@@ -1564,11 +1611,11 @@ footer {
           </div>
           <div class="fc-item">
             <div class="fc-icon">💻</div>
-            <a href="https://github.com/AvirBanerjee" target="_blank" rel="noopener">github.com/AvirBaner</a>
+            <a href="https://github.com/AvirBanerjee?tab=repositories" target="_blank" rel="noopener">github.com/AvirBaner</a>
           </div>
           <div class="fc-item">
             <div class="fc-icon">🔗</div>
-            <a href="https://linkedin.com/in/ashutoshbanerjee-230938301" target="_blank" rel="noopener">LinkedIn Profile</a>
+            <a href="https://www.linkedin.com/in/ashutosh-banerjee-230938301/" target="_blank" rel="noopener">LinkedIn Profile</a>
           </div>
         </div>
 
@@ -1604,7 +1651,7 @@ footer {
             <div class="fblock-label">By the Numbers</div>
             <div class="fblock-content">
               <div style="display:flex; flex-direction:column; gap:8px;">
-                <div><strong style="color:#0d1b3e">5+</strong> Universities trained</div>
+                <div><strong style="color:#0d1b3e">7+</strong> Universities trained</div>
                 <div><strong style="color:#0d1b3e">75+</strong> Projects evaluated</div>
                 <div><strong style="color:#0d1b3e">FDP</strong> Faculty programs led</div>
               </div>
@@ -1727,7 +1774,7 @@ footer {
 
   <div class="footer-bottom">
     <div class="footer-copy">
-      © 2025 CodeAcharya. All rights reserved. · <a href="mailto:info@codeacharya.org">info@codeacharya.org</a>
+      © 2025 CodeAcharya. All rights reserved. · <a href="mailto:info@codeacharya.org">ashutoshbanerjee@codeacharya.org</a>
     </div>
     <div class="footer-made">Bhilai / Durg, Chhattisgarh</div>
   </div>
