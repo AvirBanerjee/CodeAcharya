@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="CodeAcharya — Practical technical training for engineering colleges. Real skills, real projects, real outcomes. Based in Bhilai/Durg, Chhattisgarh."/>
+  <meta name="keywords" content="CodeAcharya, technical training, engineering colleges, Python, Full Stack, ML, AI, Bhilai, Chhattisgarh"/>
+  <meta property="og:title" content="CodeAcharya — Practical Technical Training"/>
+  <meta property="og:description" content="Bridging the gap between college curriculum and industry expectations."/>
+  <meta property="og:type" content="website"/>
+  <title>CodeAcharya — Practical Technical Training</title>
+  
+  <style>
+/* ═══════════════════════════════════════════════
+   CodeAcharya — style.css
+   Theme: Warm Editorial | Saffron × Deep Navy
+   ═══════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+/* ── TOKENS ── */
+:root {
+  --navy:       #0d1b3e;
+  --navy2:      #132050;
+  --navy3:      #1a2a62;
+  --saffron:    #f4820a;
+  --saffron2:   #ffa033;
+  --saffron-bg: rgba(244,130,10,0.08);
+  --saffron-bg2:rgba(244,130,10,0.15);
+  --cream:      #fdf8f0;
+  --cream2:     #f5ede0;
+  --cream3:     #ecdcc8;
+  --ink:        #1a1209;
+  --ink2:       #3d2e1a;
+  --ink3:       #6b5540;
+  --white:      #ffffff;
+  --border:     rgba(13,27,62,0.12);
+  --border-s:   rgba(244,130,10,0.25);
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in:  cubic-bezier(0.64, 0, 0.78, 0);
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* ── SCROLL PROGRESS ── */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--saffron), var(--saffron2));
+  z-index: 1000; width: 0; transition: width 0.05s linear;
+}
+
+/* ══════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════ */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  padding: 0 5%;
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+#navbar.scrolled {
+  background: rgba(253, 248, 240, 0.96);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 var(--border), 0 8px 32px rgba(13,27,62,0.06);
+}
+
+.nav-logo {
+  display: flex; align-items: center; gap: 12px;
+}
+.nav-logo img {
+  height: 40px; width: 40px; object-fit: contain; border-radius: 8px;
+}
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+}
+.nav-brand .accent { color: var(--saffron); }
+
+.nav-links {
+  display: flex; align-items: center; gap: 4px;
+}
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  padding: 7px 14px;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-links a:hover { color: var(--navy); background: var(--saffron-bg); }
+
+.nav-cta {
+  background: var(--navy) !important;
+  color: var(--white) !important;
+  padding: 8px 20px !important;
+  border-radius: 8px !important;
+  transition: background 0.2s, transform 0.15s !important;
+}
+.nav-cta:hover { background: var(--navy3) !important; transform: translateY(-1px); }
+
+.hamburger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  padding: 8px;
+  cursor: pointer;
+}
+.hamburger span {
+  display: block; height: 2px; width: 24px;
+  background: var(--navy);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed; top: 68px; left: 0; right: 0; bottom: 0;
+  background: var(--cream);
+  z-index: 850;
+  padding: 40px 5%;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--ink);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+}
+.mobile-menu a:hover { color: var(--saffron); }
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+#hero {
+  padding-top: 68px;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  background: var(--navy);
+}
+
+/* Diagonal split */
+#hero::before {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 120px;
+  background: var(--cream);
+  clip-path: polygon(0 60%, 100% 0, 100% 100%, 0 100%);
+  z-index: 3;
+}
+
+.hero-bg-pattern {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(244,130,10,0.18) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(26,42,98,0.5) 0%, transparent 50%);
+}
+/* dot grid */
+.hero-bg-pattern::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(253,248,240,0.12) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 80px 5% 140px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.hero-left {}
+
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--saffron-bg2);
+  border: 1px solid var(--border-s);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--saffron2);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease-out) 0.1s forwards;
+}
+.hero-tag .dot {
+  width: 6px; height: 6px;
+  background: var(--saffron);
+  border-radius: 50%;
+  animation: pulse 2s ease infinite;
+}
+
+.hero-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  font-weight: 900;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.9s var(--ease-out) 0.25s forwards;
+}
+.hero-h1 em {
+  font-style: italic;
+  color: var(--saffron);
+}
+.hero-h1 .underline-word {
+  position: relative;
+  display: inline-block;
+}
+.hero-h1 .underline-word::after {
+  content: '';
+  position: absolute;
+  bottom: 4px; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--saffron), transparent);
+  border-radius: 2px;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: rgba(253,248,240,0.72);
+  line-height: 1.8;
+  max-width: 480px;
+  margin-bottom: 44px;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeUp 0.9s var(--ease-out) 0.4s forwards;
+}
+
+.hero-btns {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.9s var(--ease-out) 0.55s forwards;
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--saffron);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 14px 28px;
+  border-radius: 10px;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(244,130,10,0.35);
+}
+.btn-primary:hover {
+  background: var(--saffron2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(244,130,10,0.45);
+}
+
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent;
+  color: var(--cream);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 14px 28px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(253,248,240,0.25);
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+}
+.btn-secondary:hover {
+  border-color: var(--saffron);
+  background: var(--saffron-bg);
+  transform: translateY(-2px);
+}
+
+.hero-right {
+  display: flex; justify-content: center; align-items: center;
+  opacity: 0;
+  animation: fadeRight 1s var(--ease-out) 0.4s forwards;
+}
+
+.hero-card {
+  background: rgba(253,248,240,0.06);
+  border: 1px solid rgba(253,248,240,0.12);
+  border-radius: 24px;
+  padding: 40px;
+  width: 100%;
+  max-width: 380px;
+  backdrop-filter: blur(20px);
+  position: relative;
+}
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 20%; right: 20%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--saffron), transparent);
+  border-radius: 2px;
+}
+
+.hero-logo-wrap {
+  text-align: center; margin-bottom: 28px;
+}
+.hero-logo-wrap img {
+  width: 120px; height: 120px;
+  object-fit: contain;
+  border-radius: 20px;
+  margin: 0 auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.hero-stats-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(253,248,240,0.1);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.h-stat {
+  background: rgba(13,27,62,0.4);
+  padding: 20px 16px;
+  text-align: center;
+}
+.h-stat-n {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--saffron);
+  line-height: 1;
+}
+.h-stat-l {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(253,248,240,0.5);
+  margin-top: 5px;
+}
+
+.hero-badge {
+  margin-top: 20px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px;
+  background: rgba(244,130,10,0.12);
+  border: 1px solid rgba(244,130,10,0.2);
+  border-radius: 10px;
+}
+.hero-badge-dot {
+  width: 8px; height: 8px;
+  background: #4ade80;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(74,222,128,0.6);
+  animation: pulse 2.5s ease infinite;
+}
+.hero-badge span {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(253,248,240,0.75);
+}
+
+/* ══════════════════════════════════════
+   SECTION SHARED
+══════════════════════════════════════ */
+.section {
+  padding: 100px 5%;
+}
+.section-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-label::before {
+  content: '';
+  display: block; width: 28px; height: 2px;
+  background: var(--saffron);
+  border-radius: 2px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.section-title em { font-style: italic; color: var(--saffron); }
+.section-sub {
+  font-size: 1rem;
+  color: var(--ink3);
+  max-width: 540px;
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+/* ── REVEAL ANIMATION ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ══════════════════════════════════════
+   MARQUEE STRIP
+══════════════════════════════════════ */
+.marquee-strip {
+  background: var(--navy);
+  padding: 18px 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(244,130,10,0.15);
+  border-bottom: 1px solid rgba(244,130,10,0.15);
+}
+.marquee-track {
+  display: flex; gap: 0;
+  animation: marquee 25s linear infinite;
+  width: max-content;
+}
+.marquee-item {
+  display: flex; align-items: center; gap: 28px;
+  padding: 0 20px;
+  white-space: nowrap;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(253,248,240,0.5);
+}
+.marquee-item .sep {
+  color: var(--saffron);
+  font-size: 1rem;
+}
+
+/* ══════════════════════════════════════
+   ABOUT SECTION
+══════════════════════════════════════ */
+#about { background: var(--white); }
+
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-top: 56px;
+  align-items: start;
+}
+
+.about-text p {
+  font-size: 0.97rem;
+  color: var(--ink2);
+  line-height: 1.9;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+.about-text p strong {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 32px;
+}
+.pillar-card {
+  background: var(--cream);
+  border: 1px solid var(--cream3);
+  border-radius: 14px;
+  padding: 22px 20px;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+  cursor: default;
+}
+.pillar-card:hover {
+  border-color: var(--saffron);
+  box-shadow: 0 8px 30px rgba(244,130,10,0.12);
+  transform: translateY(-3px);
+}
+.pillar-icon {
+  font-size: 1.5rem; margin-bottom: 12px;
+}
+.pillar-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.pillar-body {
+  font-size: 0.8rem;
+  color: var(--ink3);
+  line-height: 1.7;
+}
+
+.about-visual {}
+.about-quote-card {
+  background: var(--navy);
+  border-radius: 20px;
+  padding: 40px 36px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.about-quote-card::before {
+  content: '"';
+  position: absolute;
+  top: -20px; right: 20px;
+  font-family: var(--font-display);
+  font-size: 12rem;
+  color: rgba(244,130,10,0.08);
+  line-height: 1;
+  pointer-events: none;
+}
+.about-quote-text {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--cream);
+  line-height: 1.7;
+  margin-bottom: 20px;
+  position: relative; z-index: 1;
+}
+.about-quote-attr {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--saffron);
+}
+
+.about-numbers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--cream3);
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--cream3);
+}
+.a-num {
+  background: var(--cream);
+  padding: 22px 16px;
+  text-align: center;
+}
+.a-num-n {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--saffron);
+  line-height: 1;
+}
+.a-num-l {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-top: 5px;
+}
+
+/* ══════════════════════════════════════
+   PROGRAMS SECTION
+══════════════════════════════════════ */
+#programs { background: var(--cream); }
+
+.programs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.prog-card {
+  background: var(--white);
+  border: 1px solid var(--cream3);
+  border-radius: 20px;
+  padding: 32px 28px;
+  transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.prog-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--saffron), var(--saffron2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-out);
+}
+.prog-card:hover {
+  box-shadow: 0 12px 50px rgba(13,27,62,0.1);
+  transform: translateY(-4px);
+  border-color: transparent;
+}
+.prog-card:hover::after { transform: scaleX(1); }
+
+.prog-card.featured {
+  background: var(--navy);
+  border-color: var(--navy);
+  grid-row: span 2;
+}
+
+.prog-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--saffron);
+  margin-bottom: 20px;
+  letter-spacing: 0.1em;
+}
+.prog-card.featured .prog-num { color: rgba(253,248,240,0.4); }
+
+.prog-icon {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+.prog-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.prog-card.featured .prog-title { color: var(--cream); }
+
+.prog-desc {
+  font-size: 0.88rem;
+  color: var(--ink3);
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+.prog-card.featured .prog-desc { color: rgba(253,248,240,0.6); }
+
+.prog-tags {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.prog-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  background: var(--saffron-bg);
+  color: var(--saffron);
+  border-radius: 6px;
+}
+.prog-card.featured .prog-tag {
+  background: rgba(253,248,240,0.08);
+  color: rgba(253,248,240,0.6);
+}
+
+.prog-duration {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--cream3);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink3);
+  display: flex; align-items: center; gap: 6px;
+}
+.prog-card.featured .prog-duration {
+  border-color: rgba(253,248,240,0.1);
+  color: rgba(253,248,240,0.5);
+}
+.prog-duration svg { flex-shrink: 0; }
+
+/* ══════════════════════════════════════
+   PROCESS SECTION
+══════════════════════════════════════ */
+#process {
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+}
+#process::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 80% 50%, rgba(244,130,10,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+#process .section-title { color: var(--cream); }
+#process .section-sub { color: rgba(253,248,240,0.55); }
+#process .section-label { color: var(--saffron2); }
+
+.steps-layout {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+.step-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 0;
+  position: relative;
+}
+.step-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.step-circle {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--saffron);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--white);
+  flex-shrink: 0;
+  position: relative; z-index: 1;
+  transition: transform 0.25s;
+}
+.step-row:hover .step-circle { transform: scale(1.1); }
+.step-connector {
+  flex: 1;
+  width: 2px;
+  background: rgba(244,130,10,0.2);
+  margin: 6px 0;
+}
+.step-row:last-child .step-connector { display: none; }
+
+.step-content {
+  padding: 0 0 48px 32px;
+}
+.step-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 8px;
+  margin-top: 10px;
+}
+.step-desc {
+  font-size: 0.9rem;
+  color: rgba(253,248,240,0.55);
+  line-height: 1.8;
+  max-width: 520px;
+}
+
+/* ══════════════════════════════════════
+   FOUNDER SECTION
+══════════════════════════════════════ */
+#founder { background: var(--cream2); }
+
+.founder-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 70px;
+  align-items: start;
+  margin-top: 56px;
+}
+
+.founder-left {}
+.founder-avatar {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy), var(--navy3));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--saffron);
+  margin-bottom: 20px;
+  border: 3px solid var(--saffron);
+}
+.founder-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.founder-role {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 24px;
+}
+
+.founder-contact-list {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.fc-item {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 0.88rem;
+}
+.fc-icon {
+  width: 36px; height: 36px;
+  background: var(--white);
+  border: 1px solid var(--cream3);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.fc-item a { color: var(--ink2); transition: color 0.2s; }
+.fc-item a:hover { color: var(--saffron); }
+
+.founder-skills-wrap {
+  margin-top: 24px;
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.skill-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  background: var(--white);
+  border: 1px solid var(--cream3);
+  border-radius: 8px;
+  color: var(--navy);
+  transition: background 0.2s, border-color 0.2s;
+}
+.skill-badge:hover {
+  background: var(--saffron-bg);
+  border-color: var(--border-s);
+  color: var(--saffron);
+}
+
+.founder-right {}
+.founder-bio {
+  font-size: 0.97rem;
+  color: var(--ink2);
+  line-height: 1.9;
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+.founder-bio strong { color: var(--navy); font-weight: 600; }
+
+.founder-blocks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.fblock {
+  background: var(--white);
+  border: 1px solid var(--cream3);
+  border-radius: 16px;
+  padding: 24px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.fblock:hover {
+  border-color: var(--saffron);
+  box-shadow: 0 6px 20px rgba(244,130,10,0.1);
+}
+.fblock-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 10px;
+}
+.fblock-content {
+  font-size: 0.9rem;
+  color: var(--ink2);
+  line-height: 1.7;
+}
+.fblock-content.italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--navy);
+}
+
+.fblock.full { grid-column: span 2; }
+
+/* ══════════════════════════════════════
+   CONTACT SECTION
+══════════════════════════════════════ */
+#contact { background: var(--white); }
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  margin-top: 56px;
+}
+
+.contact-note {
+  margin-top: 24px;
+  padding: 18px 20px;
+  background: var(--cream);
+  border: 1px solid var(--cream3);
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: var(--ink3);
+  line-height: 1.7;
+}
+.contact-note strong { color: var(--navy); }
+
+.contact-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.contact-card {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 24px;
+  background: var(--cream);
+  border: 1px solid var(--cream3);
+  border-radius: 14px;
+  transition: border-color 0.25s, background 0.25s, transform 0.2s, box-shadow 0.25s;
+  cursor: pointer;
+}
+.contact-card:hover {
+  border-color: var(--saffron);
+  background: var(--white);
+  transform: translateX(6px);
+  box-shadow: 0 4px 20px rgba(244,130,10,0.1);
+}
+.cc-icon {
+  width: 48px; height: 48px;
+  background: var(--navy);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.cc-info { flex: 1; }
+.cc-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 2px;
+}
+.cc-value {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--navy);
+}
+.cc-arrow {
+  font-size: 1.1rem;
+  color: var(--saffron);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.contact-card:hover .cc-arrow { opacity: 1; transform: translateX(0); }
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer {
+  background: var(--navy);
+  padding: 60px 5% 32px;
+  border-top: 1px solid rgba(244,130,10,0.15);
+}
+.footer-grid {
+  max-width: 1160px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 48px;
+}
+.footer-brand {}
+.footer-logo-wrap {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+}
+.footer-logo-wrap img {
+  height: 36px; width: 36px; object-fit: contain; border-radius: 6px;
+}
+.footer-brand-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--cream);
+}
+.footer-brand-name span { color: var(--saffron); }
+.footer-tagline {
+  font-size: 0.82rem;
+  color: rgba(253,248,240,0.45);
+  line-height: 1.7;
+}
+
+.footer-col-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 20px;
+}
+.footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+.footer-col li a {
+  font-size: 0.88rem;
+  color: rgba(253,248,240,0.5);
+  transition: color 0.2s;
+}
+.footer-col li a:hover { color: var(--cream); }
+
+.footer-bottom {
+  max-width: 1160px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 24px;
+  border-top: 1px solid rgba(253,248,240,0.08);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-copy {
+  font-size: 0.8rem;
+  color: rgba(253,248,240,0.35);
+}
+.footer-copy a { color: var(--saffron); }
+.footer-made {
+  font-size: 0.8rem;
+  color: rgba(253,248,240,0.35);
+  font-family: var(--font-mono);
+}
+
+/* ══════════════════════════════════════
+   KEYFRAMES
+══════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(0.85); }
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .programs-grid { grid-template-columns: repeat(2, 1fr); }
+  .prog-card.featured { grid-row: auto; }
+  .founder-layout { grid-template-columns: 1fr; gap: 40px; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+
+  .hero-inner { grid-template-columns: 1fr; padding: 60px 5% 120px; }
+  .hero-right { display: none; }
+
+  .about-layout { grid-template-columns: 1fr; gap: 40px; }
+  .pillars-grid { grid-template-columns: 1fr 1fr; }
+
+  .programs-header { flex-direction: column; align-items: flex-start; }
+  .programs-grid { grid-template-columns: 1fr; }
+
+  .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+
+  .founder-blocks { grid-template-columns: 1fr; }
+  .fblock.full { grid-column: auto; }
+
+  .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+
+  .about-numbers { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .hero-h1 { font-size: 2.2rem; }
+  .pillars-grid { grid-template-columns: 1fr; }
+  .hero-btns { flex-direction: column; }
+  .btn-primary, .btn-secondary { justify-content: center; }
+}
+
+</style>
+  <!-- Fonts via CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- ── SCROLL PROGRESS ── -->
+<div id="scroll-progress"></div>
+
+<!-- ══════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════ -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <img src="codeAcharya_.jpeg" alt="CodeAcharya logo"/>
+    <span class="nav-brand"><span class="accent">Code</span>Acharya</span>
+  </a>
+
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#programs">Programs</a>
+    <a href="#process">Process</a>
+    <a href="#founder">Founder</a>
+    <a href="#contact" class="nav-cta">Get in Touch</a>
+  </div>
+
+  <button class="hamburger" id="menu-btn" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about">About</a>
+  <a href="#programs">Programs</a>
+  <a href="#process">Process</a>
+  <a href="#founder">Founder</a>
+  <a href="#contact">Get in Touch</a>
+</div>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg-pattern"></div>
+
+  <div class="hero-inner">
+    <!-- Left -->
+    <div class="hero-left">
+      <div class="hero-tag">
+        <span class="dot"></span>
+        Empowering Engineering Students Across India
+      </div>
+
+      <h1 class="hero-h1">
+        Where <em>Knowledge</em><br/>
+        Meets <span class="underline-word">Real-World</span><br/>
+        Practice
+      </h1>
+
+      <p class="hero-sub">
+        CodeAcharya brings industry-grade technical training directly to engineering colleges — closing the gap between what you learn and what employers actually need.
+      </p>
+
+      <div class="hero-btns">
+        <a href="#programs" class="btn-primary">
+          Explore Programs
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#contact" class="btn-secondary">
+          Partner With Us
+        </a>
+      </div>
+    </div>
+
+    <!-- Right Card -->
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="hero-logo-wrap">
+          <img src="codeAcharya_.jpeg" alt="CodeAcharya"/>
+        </div>
+
+        <div class="hero-stats-grid">
+          <div class="h-stat">
+            <div class="h-stat-n" data-target="500" data-suffix="+">500+</div>
+            <div class="h-stat-l">Students Trained</div>
+          </div>
+          <div class="h-stat">
+            <div class="h-stat-n" data-target="5" data-suffix="+">5+</div>
+            <div class="h-stat-l">Universities</div>
+          </div>
+          <div class="h-stat">
+            <div class="h-stat-n" data-target="75" data-suffix="+">75+</div>
+            <div class="h-stat-l">Projects Evaluated</div>
+          </div>
+          <div class="h-stat">
+            <div class="h-stat-n">FDP</div>
+            <div class="h-stat-l">Faculty Programs</div>
+          </div>
+        </div>
+
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          <span>Now accepting college partnerships for 2025–26</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     MARQUEE
+══════════════════════════════════════ -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <div class="marquee-item">Python & ML <span class="sep">✦</span></div>
+    <div class="marquee-item">Full Stack Web <span class="sep">✦</span></div>
+    <div class="marquee-item">Data Science <span class="sep">✦</span></div>
+    <div class="marquee-item">Android Development <span class="sep">✦</span></div>
+    <div class="marquee-item">Cloud & DevOps <span class="sep">✦</span></div>
+    <div class="marquee-item">Cyber Security <span class="sep">✦</span></div>
+    <div class="marquee-item">DSA & Placement <span class="sep">✦</span></div>
+    <div class="marquee-item">UI / UX Design <span class="sep">✦</span></div>
+    <div class="marquee-item">Faculty Development Programs <span class="sep">✦</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     ABOUT
+══════════════════════════════════════ -->
+<section id="about" class="section">
+  <div class="section-inner">
+    <div class="section-label reveal">About</div>
+    <h2 class="section-title reveal reveal-delay-1">
+      Practical training that<br/><em>actually prepares you</em>
+    </h2>
+
+    <div class="about-layout">
+      <!-- Left: text + pillars -->
+      <div class="about-text reveal reveal-delay-2">
+        <p>
+          <strong>CodeAcharya</strong> is a specialized technical training organization for engineering colleges across India. We work directly with institutions — HODs, placement cells, and faculty — to design and deliver training that bridges the gap between academic curriculum and industry expectations.
+        </p>
+        <p>
+          We're not a platform or a pre-recorded course factory. Every program is facilitated by a practitioner with real industry experience, adapted to your institution's academic calendar and student profile.
+        </p>
+        <p>
+          Whether it's a semester-long skill course, an intensive placement bootcamp, or a Faculty Development Program — we deliver structured, hands-on learning that produces measurable outcomes.
+        </p>
+
+        <div class="pillars-grid">
+          <div class="pillar-card reveal">
+            <div class="pillar-icon">🎯</div>
+            <div class="pillar-title">Outcome-Driven</div>
+            <div class="pillar-body">Every program is built around specific, measurable career outcomes — not just syllabus coverage.</div>
+          </div>
+          <div class="pillar-card reveal reveal-delay-1">
+            <div class="pillar-icon">🛠️</div>
+            <div class="pillar-title">Project-Based</div>
+            <div class="pillar-body">Students build real projects — the kind that belong in a portfolio and impress in interviews.</div>
+          </div>
+          <div class="pillar-card reveal reveal-delay-2">
+            <div class="pillar-icon">🏛️</div>
+            <div class="pillar-title">Campus-Ready</div>
+            <div class="pillar-body">On-campus or online delivery, scheduled around your academic calendar and exam cycle.</div>
+          </div>
+          <div class="pillar-card reveal reveal-delay-3">
+            <div class="pillar-icon">📜</div>
+            <div class="pillar-title">Certified</div>
+            <div class="pillar-body">Students receive industry certificates. Institutions receive a detailed outcome report.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: quote + numbers -->
+      <div class="about-visual reveal reveal-delay-3">
+        <div class="about-quote-card">
+          <p class="about-quote-text">
+            "Give every engineering student in India access to training that actually prepares them for the real world — regardless of what city they study in."
+          </p>
+          <div class="about-quote-attr">— Ashutosh Banerjee, Founder</div>
+        </div>
+
+        <div class="about-numbers">
+          <div class="a-num">
+            <div class="a-num-n" data-target="500" data-suffix="+">500+</div>
+            <div class="a-num-l">Students</div>
+          </div>
+          <div class="a-num">
+            <div class="a-num-n" data-target="5" data-suffix="+">5+</div>
+            <div class="a-num-l">Universities</div>
+          </div>
+          <div class="a-num">
+            <div class="a-num-n" data-target="75" data-suffix="+">75+</div>
+            <div class="a-num-l">Projects</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     PROGRAMS
+══════════════════════════════════════ -->
+<section id="programs" class="section">
+  <div class="section-inner">
+    <div class="programs-header">
+      <div>
+        <div class="section-label reveal">Programs</div>
+        <h2 class="section-title reveal reveal-delay-1">What we <em>teach</em></h2>
+        <p class="section-sub reveal reveal-delay-2">Industry-aligned programs delivered on your campus, built around what employers actually test for.</p>
+      </div>
+    </div>
+
+    <div class="programs-grid">
+      <!-- Featured card -->
+      <div class="prog-card featured reveal">
+        <div class="prog-num">01 — FLAGSHIP</div>
+        <div class="prog-icon">🤖</div>
+        <h3 class="prog-title">Python, ML & Artificial Intelligence</h3>
+        <p class="prog-desc">From Python fundamentals through supervised & unsupervised learning to deploying ML models via FastAPI — a complete practitioner pathway. Students complete 3–5 real-world ML projects by the end.</p>
+        <div class="prog-tags">
+          <span class="prog-tag">Python</span>
+          <span class="prog-tag">NumPy / Pandas</span>
+          <span class="prog-tag">Scikit-learn</span>
+          <span class="prog-tag">TensorFlow</span>
+          <span class="prog-tag">FastAPI</span>
+          <span class="prog-tag">Model Deployment</span>
+        </div>
+        <div class="prog-duration">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="rgba(253,248,240,0.5)" stroke-width="1.2"/><path d="M7 4v3.5l2 1.5" stroke="rgba(253,248,240,0.5)" stroke-width="1.1" stroke-linecap="round"/></svg>
+          4 – 16 weeks · On-campus or Online
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="prog-card reveal reveal-delay-1">
+        <div class="prog-num">02</div>
+        <div class="prog-icon">🌐</div>
+        <h3 class="prog-title">Full Stack Web Development</h3>
+        <p class="prog-desc">React + Node.js + MongoDB, end to end. Students ship a deployed, full-featured web application — an actual project, not a toy.</p>
+        <div class="prog-tags">
+          <span class="prog-tag">React</span>
+          <span class="prog-tag">Node.js</span>
+          <span class="prog-tag">MongoDB</span>
+          <span class="prog-tag">REST APIs</span>
+        </div>
+        <div class="prog-duration">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#6b5540" stroke-width="1.2"/><path d="M7 4v3.5l2 1.5" stroke="#6b5540" stroke-width="1.1" stroke-linecap="round"/></svg>
+          6 – 14 weeks
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="prog-card reveal reveal-delay-2">
+        <div class="prog-num">03</div>
+        <div class="prog-icon">📊</div>
+        <h3 class="prog-title">Data Science & Analytics</h3>
+        <p class="prog-desc">Data wrangling, EDA, visualization, and business-ready dashboards. Taught with real datasets, not textbook CSVs.</p>
+        <div class="prog-tags">
+          <span class="prog-tag">Python</span>
+          <span class="prog-tag">Pandas</span>
+          <span class="prog-tag">Power BI</span>
+          <span class="prog-tag">SQL</span>
+        </div>
+        <div class="prog-duration">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#6b5540" stroke-width="1.2"/><path d="M7 4v3.5l2 1.5" stroke="#6b5540" stroke-width="1.1" stroke-linecap="round"/></svg>
+          4 – 10 weeks
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="prog-card reveal">
+        <div class="prog-num">04</div>
+        <div class="prog-icon">☁️</div>
+        <h3 class="prog-title">Cloud & DevOps</h3>
+        <p class="prog-desc">Docker, CI/CD pipelines, AWS basics, and deploying production apps. The skills most students never get in class.</p>
+        <div class="prog-tags">
+          <span class="prog-tag">Docker</span>
+          <span class="prog-tag">GitHub Actions</span>
+          <span class="prog-tag">AWS</span>
+          <span class="prog-tag">Linux</span>
+        </div>
+        <div class="prog-duration">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#6b5540" stroke-width="1.2"/><path d="M7 4v3.5l2 1.5" stroke="#6b5540" stroke-width="1.1" stroke-linecap="round"/></svg>
+          4 – 8 weeks
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="prog-card reveal reveal-delay-1">
+        <div class="prog-num">05</div>
+        <div class="prog-icon">🔐</div>
+        <h3 class="prog-title">Cyber Security</h3>
+        <p class="prog-desc">Ethical hacking, network security, and OWASP fundamentals. Practical labs, not just theory slides.</p>
+        <div class="prog-tags">
+          <span class="prog-tag">Ethical Hacking</span>
+          <span class="prog-tag">Network Security</span>
+          <span class="prog-tag">OWASP</span>
+        </div>
+        <div class="prog-duration">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#6b5540" stroke-width="1.2"/><path d="M7 4v3.5l2 1.5" stroke="#6b5540" stroke-width="1.1" stroke-linecap="round"/></svg>
+          4 – 8 weeks
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="prog-card reveal reveal-delay-2">
+        <div class="prog-num">06</div>
+        <div class="prog-icon">💼</div>
+        <h3 class="prog-title">Placement Bootcamp & DSA</h3>
+        <p class="prog-desc">Intensive DSA preparation, mock interviews, and aptitude coaching designed to boost placement percentages in top companies.</p>
+        <div class="prog-tags">
+          <span class="prog-tag">DSA</span>
+          <span class="prog-tag">LeetCode</span>
+          <span class="prog-tag">Mock Interviews</span>
+          <span class="prog-tag">Aptitude</span>
+        </div>
+        <div class="prog-duration">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#6b5540" stroke-width="1.2"/><path d="M7 4v3.5l2 1.5" stroke="#6b5540" stroke-width="1.1" stroke-linecap="round"/></svg>
+          2 – 8 weeks intensive
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     PROCESS
+══════════════════════════════════════ -->
+<section id="process" class="section">
+  <div class="section-inner">
+    <div class="section-label reveal">How It Works</div>
+    <h2 class="section-title reveal reveal-delay-1">From first call to<br/><em>training day</em></h2>
+    <p class="section-sub reveal reveal-delay-2">A simple, institution-friendly process with no long-winded procurement cycles.</p>
+
+    <div class="steps-layout">
+
+      <div class="step-row reveal">
+        <div class="step-line">
+          <div class="step-circle">01</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">Initial Inquiry</div>
+          <div class="step-desc">A HOD, principal, or placement coordinator reaches out via email or phone. A brief call to understand your college's needs, student batch size, and academic timeline.</div>
+        </div>
+      </div>
+
+      <div class="step-row reveal">
+        <div class="step-line">
+          <div class="step-circle">02</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">Custom Proposal</div>
+          <div class="step-desc">A tailored course proposal with clear learning outcomes, session breakdown, and transparent pricing — delivered within 48 hours of the first call.</div>
+        </div>
+      </div>
+
+      <div class="step-row reveal">
+        <div class="step-line">
+          <div class="step-circle">03</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">MoU Signing</div>
+          <div class="step-desc">A simple agreement outlining scope, schedule, deliverables, and payment terms. No complex procurement. No unnecessary bureaucracy.</div>
+        </div>
+      </div>
+
+      <div class="step-row reveal">
+        <div class="step-line">
+          <div class="step-circle">04</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">Training Begins</div>
+          <div class="step-desc">Sessions begin as per the agreed academic calendar — on-campus or online. Live, interactive, and project-driven. Progress shared regularly with the institution.</div>
+        </div>
+      </div>
+
+      <div class="step-row reveal">
+        <div class="step-line">
+          <div class="step-circle">05</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">Certification & Report</div>
+          <div class="step-desc">Industry certificates issued to students. A detailed outcome report submitted to the institution, documenting skill acquisition and project completions.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOUNDER
+══════════════════════════════════════ -->
+<section id="founder" class="section">
+  <div class="section-inner">
+    <div class="section-label reveal">The Team</div>
+    <h2 class="section-title reveal reveal-delay-1">The person behind <em>CodeAcharya</em></h2>
+
+    <div class="founder-layout">
+      <!-- Left: identity -->
+      <div class="founder-left reveal">
+        <div class="founder-avatar">AB</div>
+        <div class="founder-name">Ashutosh Banerjee</div>
+        <div class="founder-role">Founder & Lead Trainer</div>
+
+        <div class="founder-contact-list">
+          <div class="fc-item">
+            <div class="fc-icon">✉️</div>
+            <a href="mailto:info@codeacharya.org">info@codeacharya.org</a>
+          </div>
+          <div class="fc-item">
+            <div class="fc-icon">📞</div>
+            <a href="tel:+916260004976">+91 6260 004 976</a>
+          </div>
+          <div class="fc-item">
+            <div class="fc-icon">💻</div>
+            <a href="https://github.com/AvirBaner" target="_blank" rel="noopener">github.com/AvirBaner</a>
+          </div>
+          <div class="fc-item">
+            <div class="fc-icon">🔗</div>
+            <a href="https://linkedin.com/in/ashutoshbanerjee-230938301" target="_blank" rel="noopener">LinkedIn Profile</a>
+          </div>
+        </div>
+
+        <div class="founder-skills-wrap" style="margin-top: 28px;">
+          <span class="skill-badge">Python</span>
+          <span class="skill-badge">Java</span>
+          <span class="skill-badge">React</span>
+          <span class="skill-badge">Node.js</span>
+          <span class="skill-badge">Django</span>
+          <span class="skill-badge">FastAPI</span>
+          <span class="skill-badge">ML / AI</span>
+          <span class="skill-badge">Docker</span>
+          <span class="skill-badge">Next.js</span>
+          <span class="skill-badge">MongoDB</span>
+        </div>
+      </div>
+
+      <!-- Right: story + blocks -->
+      <div class="founder-right reveal reveal-delay-2">
+        <p class="founder-bio">
+          <strong>Ashutosh Banerjee</strong> is a technical trainer and software developer with hands-on experience training engineering students across universities in India — from Faculty Development Programs to intensive placement bootcamps.
+        </p>
+        <p class="founder-bio">
+          He founded CodeAcharya out of frustration: too many talented students in smaller cities were graduating without practical skills, simply because quality training had never reached their doorstep. His answer was simple — bring the trainer to the campus, not the other way around.
+        </p>
+
+        <div class="founder-blocks">
+          <div class="fblock">
+            <div class="fblock-label">Mission</div>
+            <div class="fblock-content italic">"Give every engineering student in India access to training that actually prepares them for the real world — regardless of what city they study in."</div>
+          </div>
+          <div class="fblock">
+            <div class="fblock-label">By the Numbers</div>
+            <div class="fblock-content">
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div><strong style="color:#0d1b3e">5+</strong> Universities trained</div>
+                <div><strong style="color:#0d1b3e">75+</strong> Projects evaluated</div>
+                <div><strong style="color:#0d1b3e">FDP</strong> Faculty programs led</div>
+              </div>
+            </div>
+          </div>
+          <div class="fblock full">
+            <div class="fblock-label">Domains of Expertise</div>
+            <div class="fblock-content">
+              <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;">
+                <span class="skill-badge">Python &amp; ML</span>
+                <span class="skill-badge">Full Stack Web</span>
+                <span class="skill-badge">Data Science</span>
+                <span class="skill-badge">Android Dev</span>
+                <span class="skill-badge">Cloud &amp; DevOps</span>
+                <span class="skill-badge">Cyber Security</span>
+                <span class="skill-badge">DSA &amp; Placement</span>
+                <span class="skill-badge">UI / UX Design</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CONTACT
+══════════════════════════════════════ -->
+<section id="contact" class="section">
+  <div class="section-inner">
+    <div class="contact-layout">
+      <div>
+        <div class="section-label reveal">Contact</div>
+        <h2 class="section-title reveal reveal-delay-1">Let's talk about<br/><em>your institution</em></h2>
+        <p class="section-sub reveal reveal-delay-2" style="margin-top: 16px;">
+          Whether you're a HOD, principal, or placement coordinator — reach out directly. We respond within 24 hours and can have a customised proposal ready in 48.
+        </p>
+        <div class="contact-note reveal reveal-delay-3">
+          <strong>No commitment required.</strong> We offer a free pilot workshop session before any long-term agreement — so you can see the training quality firsthand.
+        </div>
+      </div>
+
+      <div class="contact-cards reveal reveal-delay-2">
+        <a href="mailto:info@codeacharya.org" class="contact-card">
+          <div class="cc-icon">✉️</div>
+          <div class="cc-info">
+            <div class="cc-label">Email</div>
+            <div class="cc-value">info@codeacharya.org</div>
+          </div>
+          <div class="cc-arrow">→</div>
+        </a>
+
+        <a href="tel:+916260004976" class="contact-card">
+          <div class="cc-icon">📞</div>
+          <div class="cc-info">
+            <div class="cc-label">Phone / WhatsApp</div>
+            <div class="cc-value">+91 6260 004 976</div>
+          </div>
+          <div class="cc-arrow">→</div>
+        </a>
+
+        <a href="https://codeacharya.org" target="_blank" rel="noopener" class="contact-card">
+          <div class="cc-icon">🌐</div>
+          <div class="cc-info">
+            <div class="cc-label">Website</div>
+            <div class="cc-value">codeacharya.org</div>
+          </div>
+          <div class="cc-arrow">→</div>
+        </a>
+
+        <div class="contact-card" style="cursor:default;">
+          <div class="cc-icon">📍</div>
+          <div class="cc-info">
+            <div class="cc-label">Location</div>
+            <div class="cc-value">Bhilai / Durg, Chhattisgarh</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo-wrap">
+        <img src="codeAcharya_.jpeg" alt="CodeAcharya"/>
+        <div class="footer-brand-name"><span>Code</span>Acharya</div>
+      </div>
+      <p class="footer-tagline">Practical technical training for engineering colleges across India.</p>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-col-title">Navigation</div>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#founder">Founder</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-col-title">Programs</div>
+      <ul>
+        <li><a href="#programs">Python & ML / AI</a></li>
+        <li><a href="#programs">Full Stack Web</a></li>
+        <li><a href="#programs">Data Science</a></li>
+        <li><a href="#programs">Cloud & DevOps</a></li>
+        <li><a href="#programs">Cyber Security</a></li>
+        <li><a href="#programs">Placement Bootcamp</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-copy">
+      © 2025 CodeAcharya. All rights reserved. · <a href="mailto:info@codeacharya.org">info@codeacharya.org</a>
+    </div>
+    <div class="footer-made">Bhilai / Durg, Chhattisgarh</div>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════
+   CodeAcharya — main.js
+   ═══════════════════════════════════════════════ */
+
+'use strict';
+
+/* ── SCROLL PROGRESS BAR ── */
+function initScrollProgress() {
+  const bar = document.getElementById('scroll-progress');
+  if (!bar) return;
+  window.addEventListener('scroll', () => {
+    const total = document.body.scrollHeight - window.innerHeight;
+    const pct   = total > 0 ? (window.scrollY / total) * 100 : 0;
+    bar.style.width = pct + '%';
+  }, { passive: true });
+}
+
+/* ── NAVBAR SCROLL STATE ── */
+function initNavbar() {
+  const nav = document.getElementById('navbar');
+  if (!nav) return;
+  const update = () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+/* ── MOBILE MENU TOGGLE ── */
+function initMobileMenu() {
+  const btn  = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const bars = document.querySelectorAll('.hamburger span');
+  if (!btn || !menu) return;
+
+  let open = false;
+  btn.addEventListener('click', () => {
+    open = !open;
+    menu.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+    // animate bars
+    if (open) {
+      bars[0].style.transform = 'translateY(7px) rotate(45deg)';
+      bars[1].style.opacity = '0';
+      bars[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+    } else {
+      bars.forEach(b => { b.style.transform = ''; b.style.opacity = ''; });
+    }
+  });
+
+  // close on link click
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      open = false;
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+      bars.forEach(b => { b.style.transform = ''; b.style.opacity = ''; });
+    });
+  });
+}
+
+/* ── REVEAL ON SCROLL ── */
+function initReveal() {
+  const els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  els.forEach(el => observer.observe(el));
+}
+
+/* ── ANIMATED COUNTER ── */
+function animateCounter(el) {
+  const target = parseFloat(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const duration = 1800;
+  const start = performance.now();
+  const isInt = Number.isInteger(target);
+
+  const tick = (now) => {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 4);
+    const val = target * ease;
+    el.textContent = (isInt ? Math.round(val) : val.toFixed(1)) + suffix;
+    if (progress < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+function initCounters() {
+  const counters = document.querySelectorAll('[data-target]');
+  if (!counters.length) return;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCounter(e.target);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  counters.forEach(el => observer.observe(el));
+}
+
+/* ── MARQUEE DUPLICATE ── */
+function initMarquee() {
+  const track = document.querySelector('.marquee-track');
+  if (!track) return;
+  // duplicate content for seamless loop
+  const clone = track.innerHTML;
+  track.innerHTML += clone;
+}
+
+/* ── SMOOTH SCROLL ── */
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const offset = 68; // navbar height
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+}
+
+/* ── ACTIVE NAV LINK ── */
+function initActiveNav() {
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a[href^="#"]');
+  if (!sections.length || !links.length) return;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+}
+
+/* ── CARD TILT ON MOUSE ── */
+function initCardTilt() {
+  document.querySelectorAll('.prog-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width  - 0.5;
+      const y = (e.clientY - rect.top)  / rect.height - 0.5;
+      card.style.transform = `translateY(-4px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+}
+
+/* ── INIT ALL ── */
+document.addEventListener('DOMContentLoaded', () => {
+  initScrollProgress();
+  initNavbar();
+  initMobileMenu();
+  initReveal();
+  initCounters();
+  initMarquee();
+  initSmoothScroll();
+  initActiveNav();
+  initCardTilt();
+});
+
+</script>
+</body>
+</html>
